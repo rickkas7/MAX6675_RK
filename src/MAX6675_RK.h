@@ -85,7 +85,9 @@ public:
      * 
      * @return float A value in degrees C. It will be in the range 0 <= value <- 1023.75.
      * 
-     * Returns NaN if the sensor is not present. See withOpenDetection().
+     * Returns NaN if the sensor (T+ or T-) is not connected. See withOpenDetection().
+     * 
+     * Will typically return 0.0 if the chip is not connected via SPI.
      */
     float readValue();
 

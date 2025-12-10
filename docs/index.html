@@ -75,6 +75,75 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md__r_e_a_d_m_e"></a> <em>MAX6675 SPI thermocouple library for Particle devices</em></p>
+<h1>API</h1>
+<h2>Allocate an object</h2>
+<p>You will typically allocate one of these objects as a global variable.</p>
+<div class="fragment"><div class="line"><span class="comment">// Examples. Select only one!</span></div>
+<div class="line"><a class="code hl_class" href="class_m_a_x6675___r_k.html">MAX6675_RK</a> sensor;</div>
+<div class="line"><a class="code hl_class" href="class_m_a_x6675___r_k.html">MAX6675_RK</a> sensor(A0);</div>
+<div class="line"><a class="code hl_class" href="class_m_a_x6675___r_k.html">MAX6675_RK</a> sensor(&amp;SPI1, D5);</div>
+<div class="ttc" id="aclass_m_a_x6675___r_k_html"><div class="ttname"><a href="class_m_a_x6675___r_k.html">MAX6675_RK</a></div><div class="ttdoc">Class for reading a MAX6665 SPI thermocouple interface.</div><div class="ttdef"><b>Definition</b> MAX6675_RK.h:12</div></div>
+</div><!-- fragment --><p>You can configure more than one sensor by creating multiple objects. Each sensor must have its own CS line.</p>
+<div class="fragment"><div class="line"><span class="comment">// Multiple sensors</span></div>
+<div class="line"><a class="code hl_class" href="class_m_a_x6675___r_k.html">MAX6675_RK</a> sensor1(D2);</div>
+<div class="line"><a class="code hl_class" href="class_m_a_x6675___r_k.html">MAX6675_RK</a> sensor2(D3);</div>
+</div><!-- fragment --><h2>Initialize the object in setup()</h2>
+<div class="fragment"><div class="line"><span class="keywordtype">void</span> setup() {</div>
+<div class="line">    sensor.<a class="code hl_function" href="class_m_a_x6675___r_k.html#a98493ba76e6867ef11f9ea408fb6ab34">setup</a>();</div>
+<div class="line">}</div>
+<div class="ttc" id="aclass_m_a_x6675___r_k_html_a98493ba76e6867ef11f9ea408fb6ab34"><div class="ttname"><a href="class_m_a_x6675___r_k.html#a98493ba76e6867ef11f9ea408fb6ab34">MAX6675_RK::setup</a></div><div class="ttdeci">void setup()</div><div class="ttdoc">Perform setup operations; call this from global application setup()</div><div class="ttdef"><b>Definition</b> MAX6675_RK.cpp:3</div></div>
+</div><!-- fragment --><h2>Read the value</h2>
+<p>Use the readValue() method to read the value:</p>
+<div class="fragment"><div class="line"><span class="keywordtype">float</span> value = sensor.<a class="code hl_function" href="class_m_a_x6675___r_k.html#a5377e78967fff538769ca1782488148e">readValue</a>();</div>
+<div class="line"><span class="keywordflow">if</span> (!std::isnan(value)) {</div>
+<div class="line">    Log.info(<span class="stringliteral">&quot;value=%f&quot;</span>, value);</div>
+<div class="line">}</div>
+<div class="ttc" id="aclass_m_a_x6675___r_k_html_a5377e78967fff538769ca1782488148e"><div class="ttname"><a href="class_m_a_x6675___r_k.html#a5377e78967fff538769ca1782488148e">MAX6675_RK::readValue</a></div><div class="ttdeci">float readValue()</div><div class="ttdoc">Return a value in degrees C.</div><div class="ttdef"><b>Definition</b> MAX6675_RK.cpp:25</div></div>
+</div><!-- fragment --><h1>Example</h1>
+<p>I purchased <a href="https://www.amazon.com/dp/B092ZCSM7J">this set</a> of inexpensive MAX6675 with thermocouples from Amazon. There are many similar boards available on Amazon, eBay, and AliExpress.</p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadLeft">Pin   </th><th class="markdownTableHeadLeft">Description   </th><th class="markdownTableHeadLeft">Connects To   </th><th class="markdownTableHeadLeft">Picture    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyLeft">GND   </td><td class="markdownTableBodyLeft">Ground   </td><td class="markdownTableBodyLeft">GND   </td><td class="markdownTableBodyLeft">Gray to GND    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyLeft">VCC   </td><td class="markdownTableBodyLeft">3.0 to 5V   </td><td class="markdownTableBodyLeft">3V3   </td><td class="markdownTableBodyLeft">Purple to 3V3    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyLeft">SCK   </td><td class="markdownTableBodyLeft">SCK   </td><td class="markdownTableBodyLeft">SCK   </td><td class="markdownTableBodyLeft">Blue to SCK    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyLeft">CS   </td><td class="markdownTableBodyLeft">Chip Select   </td><td class="markdownTableBodyLeft">Available GPIO   </td><td class="markdownTableBodyLeft">Green to S3    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyLeft">SO   </td><td class="markdownTableBodyLeft">Data Out   </td><td class="markdownTableBodyLeft">MISO   </td><td class="markdownTableBodyLeft">Yellow to MISO   </td></tr>
+</table>
+<p>The CS pin can be connected to any available GPIO. There is a default CS pin named <code>SS</code> that varies depending on the device, but you don't have to specifically use that pin.</p>
+<p>The color doesn't matter, and that is not the same Dupont wire that came with the thermocouple adapter as I wanted male-to-female instead of female-to-female. The colors are only listed to clarify the picture.</p>
+<div class="image">
+<img src="wiring.jpeg" alt=""/>
+<div class="caption">
+Wiring</div></div>
+    <p>The connections on this adapter board:</p>
+<div class="image">
+<img src="board.jpeg" alt=""/>
+<div class="caption">
+Board connections</div></div>
+    <p>The sample code in examples/1-Simple can be used to test the firmware side.</p>
+<p>The output should look like this:</p>
+<div class="fragment"><div class="line">0000022622 [app] INFO: value=26.500000</div>
+<div class="line">0000024622 [app] INFO: value=26.750000</div>
+<div class="line">0000026622 [app] INFO: value=26.500000</div>
+<div class="line">0000028622 [app] INFO: value=26.500000</div>
+<div class="line">0000030622 [app] INFO: value=26.500000</div>
+<div class="line">0000032622 [app] INFO: value=26.250000</div>
+<div class="line">0000034622 [app] INFO: value=26.500000</div>
+<div class="line">0000036622 [app] INFO: value=26.500000</div>
+<div class="line">0000038622 [app] INFO: value=26.750000</div>
+</div><!-- fragment --><p>If you disconnect the T+ or T- thermocouple connection, you should see something like:</p>
+<div class="fragment"><div class="line">0001088622 [app] INFO: value=26.500000</div>
+<div class="line">0001090622 [app] INFO: sensor not available</div>
+<div class="line">0001092622 [app] INFO: sensor not available</div>
+<div class="line">0001094622 [app] INFO: value=26.500000</div>
+</div><!-- fragment --><p>If you disconnect the SPI interface, you will typically get a value of 0.</p>
+<h1>MAX6675</h1>
 <p>From the datasheet:</p>
 <p><b>Cold-Junction-Compensated K-Thermocouple-to-Digital Converter (0°C to +1024°C)</b></p>
 <p>The MAX6675 performs cold-junction compensation and digitizes the signal from a type-K thermocouple. The data is output in a 12-bit resolution, SPI-compatible, read-only format.</p>
@@ -98,7 +167,11 @@ $(function() {
 <img src="spi-timing.png" alt=""/>
 <div class="caption">
 SPI timing</div></div>
-    <h1>API</h1>
+    <h1>Version History</h1>
+<h2>0.0.1 (2025-12-10)</h2>
+<ul>
+<li>Initial version </li>
+</ul>
 </div></div><!-- PageDoc -->
 <a href="doxygen_crawl.html"/>
 </div><!-- contents -->

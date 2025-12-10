@@ -245,7 +245,8 @@ SPISettings&#160;</td><td class="memItemRight" valign="bottom"><b>spiSettings</b
 
 <p>Return a value in degrees C. </p>
 <dl class="section return"><dt>Returns</dt><dd>float A value in degrees C. It will be in the range 0 &lt;= value &lt;- 1023.75.</dd></dl>
-<p>Returns NaN if the sensor is not present. See <a class="el" href="#ae78ea98184849c37a54599b72af039ff" title="Sets whether open detection mode is enabled or not (default is true)">withOpenDetection()</a>. </p>
+<p>Returns NaN if the sensor (T+ or T-) is not connected. See <a class="el" href="#ae78ea98184849c37a54599b72af039ff" title="Sets whether open detection mode is enabled or not (default is true)">withOpenDetection()</a>.</p>
+<p>Will typically return 0.0 if the chip is not connected via SPI. </p>
 
 </div>
 </div>

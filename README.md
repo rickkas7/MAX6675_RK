@@ -2,6 +2,10 @@
 
 *MAX6675 SPI thermocouple library for Particle devices*
 
+- Repository: https://github.com/rickkas7/MAX6675_RK
+- License: MIT
+- Full browseable API documentation: https://rickkas7.github.io/MAX6675_RK/index.html
+
 
 ## API
 

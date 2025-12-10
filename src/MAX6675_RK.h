@@ -15,6 +15,88 @@
 class MAX6675_RK {
 public:
     /**
+     * @brief Container for information about a sensor including its SPI interface and CS pin
+     */
+    class Sensor {
+    public:
+        SPIClass *spi = &SPI;
+        pin_t csPin = SS;
+        bool openDetection = true;
+
+        /**
+         * @brief Default constructor using primary SPI (SPI) and default CS pin (SS)
+         */
+        Sensor() {};
+
+        /**
+         * @brief Constructor using primary SPI (SPI) and a user-specified CS pin
+         * 
+         * @param csPin Pin to use for chip select
+         */
+        Sensor(pin_t csPin) { this->csPin = csPin; };
+
+        /**
+         * @brief Constructor using a specific SPI interface and a user-specified CS pin
+         * 
+         * @param spi SPI interface to use, such as &SPI, &SPI1, ...
+         * @param csPin Pin to use for chip select
+         */
+        Sensor(SPIClass *spi, pin_t csPin) { this->spi = spi; this->csPin = csPin; };
+
+        /**
+         * @brief Copy constructor
+         * 
+         * @param other 
+         */
+        Sensor(const Sensor &other) { spi = other.spi; csPin = other.csPin; };
+
+        /**
+         * @brief Assignment operator
+         * 
+         * @param other 
+         * @return Sensor& 
+         */
+        Sensor &operator=(const Sensor &other) { spi = other.spi; csPin = other.csPin; return *this; };
+
+        /**
+         * @brief Whether to use open sensor detection when using readValue (default: yes/true)
+         * 
+         * @param value 
+         * @return Sensor& 
+         * 
+         * The MAX6675 has open sensor detection if the T- pin is connected to GND. If there is no
+         * thermocouple, bit D2 will be high, indicating the sensor is open or missing.
+         * 
+         * The readValue() detects this an returns NaN if the sensor is missing.
+         * 
+         * If you have T- and GND isolated from each other, you must turn open detection off!
+         */
+        Sensor &withOpenDetection(bool value = true) { openDetection = value; return *this; };
+
+        /**
+         * @brief Read the raw 16-bit value from the sensor
+         * 
+         * @return uint16_t 
+         */
+        uint16_t readRaw();
+
+        /**
+         * @brief Return a value in degrees C
+         * 
+         * @return float 
+         * 
+         * Returns NaN if the sensor is not present. See withOpenDetection.
+         */
+        float readValue();
+
+        /**
+         * @brief SPI settings, You won't generally have to change these settings; they're based on what the MAX6675 requires.
+         */
+        SPISettings spiSettings = SPISettings(4 * MHZ, MSBFIRST, SPI_MODE3);
+
+    };
+
+    /**
      * @brief Gets the singleton instance of this class, allocating it if necessary
      * 
      * Use MAX6675_RK::instance() to instantiate the singleton.
@@ -22,11 +104,32 @@ public:
     static MAX6675_RK &instance();
 
     /**
+     * @brief Add a sensor using a Sensor object
+     * 
+     * @param sensor 
+     * @return MAX6675_RK& 
+     */
+    MAX6675_RK &withSensor(Sensor sensor) { sensors.append(sensor); return *this; };
+
+
+    /**
+     * @brief Add a sensor with the specified CS pin on primary SPU
+     * 
+     * @param sensor 
+     * @return MAX6675_RK& 
+     * 
+     * For more complex scenarios, use a Sensor object.
+     */
+    MAX6675_RK &withSensor(pin_t csPin) { sensors.append(Sensor(csPin)); return *this; };
+
+    /**
      * @brief Perform setup operations; call this from global application setup()
      * 
      * You typically use MAX6675_RK::instance().setup();
      */
     void setup();
+
+    void runForAllSensors(std::function<void(Sensor &sensor)> fn);
 
     /**
      * @brief Locks the mutex that protects shared resources
@@ -112,6 +215,11 @@ protected:
      * This is initialized in setup() so make sure you call the setup() method from the global application setup.
      */
     Thread *thread = 0;
+
+    /**
+     * @brief Vector of Sensor objects
+     */
+    Vector<Sensor> sensors;
 
     /**
      * @brief Singleton instance of this class

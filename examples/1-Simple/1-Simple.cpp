@@ -10,8 +10,10 @@ SYSTEM_MODE(SEMI_AUTOMATIC);
 SYSTEM_THREAD(ENABLED); // System thread defaults to on in 6.2.0 and later and this line is not required
 #endif
 
+MAX6675_RK sensor;
+
 void setup() {
-    MAX6675_RK::instance().setup();
+    sensor.setup();
 
     Particle.connect();
 }

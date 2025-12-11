@@ -85,25 +85,22 @@ $(function() {
 <p>You will typically allocate one of these objects as a global variable.</p>
 <div class="fragment"><div class="line"><span class="comment">// Examples. Select only one!</span></div>
 <div class="line"><a class="code hl_class" href="class_m_a_x6675___r_k.html">MAX6675_RK</a> sensor;</div>
-<div class="line"><a class="code hl_class" href="class_m_a_x6675___r_k.html">MAX6675_RK</a> sensor(A0);</div>
-<div class="line"><a class="code hl_class" href="class_m_a_x6675___r_k.html">MAX6675_RK</a> sensor(&amp;SPI1, D5);</div>
+<div class="line"><span class="comment">// MAX6675_RK sensor(A0);</span></div>
+<div class="line"><span class="comment">// MAX6675_RK sensor(&amp;SPI1, D5);</span></div>
 <div class="ttc" id="aclass_m_a_x6675___r_k_html"><div class="ttname"><a href="class_m_a_x6675___r_k.html">MAX6675_RK</a></div><div class="ttdoc">Class for reading a MAX6665 SPI thermocouple interface.</div><div class="ttdef"><b>Definition</b> MAX6675_RK.h:12</div></div>
-</div><!-- fragment --><p>You can configure more than one sensor by creating multiple objects. Each sensor must have its own CS line.</p>
-<div class="fragment"><div class="line"><span class="comment">// Multiple sensors</span></div>
-<div class="line"><a class="code hl_class" href="class_m_a_x6675___r_k.html">MAX6675_RK</a> sensor1(D2);</div>
-<div class="line"><a class="code hl_class" href="class_m_a_x6675___r_k.html">MAX6675_RK</a> sensor2(D3);</div>
-</div><!-- fragment --><h2>Initialize the object in setup()</h2>
+</div><!-- fragment --><p>You can configure more than one sensor by creating multiple objects. Each sensor must have its own CS line. See example 2-multiple.</p>
+<h2>Initialize the object in setup()</h2>
 <div class="fragment"><div class="line"><span class="keywordtype">void</span> setup() {</div>
 <div class="line">    sensor.<a class="code hl_function" href="class_m_a_x6675___r_k.html#a98493ba76e6867ef11f9ea408fb6ab34">setup</a>();</div>
 <div class="line">}</div>
 <div class="ttc" id="aclass_m_a_x6675___r_k_html_a98493ba76e6867ef11f9ea408fb6ab34"><div class="ttname"><a href="class_m_a_x6675___r_k.html#a98493ba76e6867ef11f9ea408fb6ab34">MAX6675_RK::setup</a></div><div class="ttdeci">void setup()</div><div class="ttdoc">Perform setup operations; call this from global application setup()</div><div class="ttdef"><b>Definition</b> MAX6675_RK.cpp:3</div></div>
 </div><!-- fragment --><h2>Read the value</h2>
-<p>Use the readValue() method to read the value:</p>
+<p>Use the readValue() method to read the value in degrees Celsius:</p>
 <div class="fragment"><div class="line"><span class="keywordtype">float</span> value = sensor.<a class="code hl_function" href="class_m_a_x6675___r_k.html#a5377e78967fff538769ca1782488148e">readValue</a>();</div>
 <div class="line"><span class="keywordflow">if</span> (!std::isnan(value)) {</div>
 <div class="line">    Log.info(<span class="stringliteral">&quot;value=%f&quot;</span>, value);</div>
 <div class="line">}</div>
-<div class="ttc" id="aclass_m_a_x6675___r_k_html_a5377e78967fff538769ca1782488148e"><div class="ttname"><a href="class_m_a_x6675___r_k.html#a5377e78967fff538769ca1782488148e">MAX6675_RK::readValue</a></div><div class="ttdeci">float readValue()</div><div class="ttdoc">Return a value in degrees C.</div><div class="ttdef"><b>Definition</b> MAX6675_RK.cpp:25</div></div>
+<div class="ttc" id="aclass_m_a_x6675___r_k_html_a5377e78967fff538769ca1782488148e"><div class="ttname"><a href="class_m_a_x6675___r_k.html#a5377e78967fff538769ca1782488148e">MAX6675_RK::readValue</a></div><div class="ttdeci">float readValue()</div><div class="ttdoc">Return a value in degrees Celsius.</div><div class="ttdef"><b>Definition</b> MAX6675_RK.cpp:25</div></div>
 </div><!-- fragment --><h1>Example</h1>
 <p>I purchased <a href="https://www.amazon.com/dp/B092ZCSM7J">this set</a> of inexpensive MAX6675 with thermocouples from Amazon. There are many similar boards available on Amazon, eBay, and AliExpress.</p>
 <table class="markdownTable">
@@ -173,6 +170,10 @@ Board connections</div></div>
 <div class="caption">
 SPI timing</div></div>
     <h1>Version History</h1>
+<h2>0.0.2 (2025-12-11)</h2>
+<ul>
+<li>Added example for multiple sensors (2-multiple)</li>
+</ul>
 <h2>0.0.1 (2025-12-10)</h2>
 <ul>
 <li>Initial version </li>

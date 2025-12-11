@@ -16,17 +16,11 @@ You will typically allocate one of these objects as a global variable.
 ```cpp
 // Examples. Select only one!
 MAX6675_RK sensor;
-MAX6675_RK sensor(A0);
-MAX6675_RK sensor(&SPI1, D5);
+// MAX6675_RK sensor(A0);
+// MAX6675_RK sensor(&SPI1, D5);
 ```
 
-You can configure more than one sensor by creating multiple objects. Each sensor must have its own CS line.
-
-```cpp
-// Multiple sensors
-MAX6675_RK sensor1(D2);
-MAX6675_RK sensor2(D3);
-```
+You can configure more than one sensor by creating multiple objects. Each sensor must have its own CS line. See example 2-multiple.
 
 ### Initialize the object in setup()
 
@@ -38,7 +32,7 @@ void setup() {
 
 ### Read the value
 
-Use the readValue() method to read the value:
+Use the readValue() method to read the value in degrees Celsius:
 
 ```cpp
 float value = sensor.readValue();
@@ -126,6 +120,11 @@ Additionally:
 
 ## Version History
 
+### 0.0.2 (2025-12-11)
+
+- Added example for multiple sensors (2-multiple)
+
 ### 0.0.1 (2025-12-10)
 
 - Initial version
+

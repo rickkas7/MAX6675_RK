@@ -81,15 +81,35 @@ public:
     uint16_t readRaw();
 
     /**
-     * @brief Return a value in degrees C
+     * @brief Return a value in degrees Celsius
      * 
-     * @return float A value in degrees C. It will be in the range 0 <= value <- 1023.75.
+     * @return float A value in degrees C. It will be in the range 0 <= value <= 1023.75.
      * 
      * Returns NaN if the sensor (T+ or T-) is not connected. See withOpenDetection().
      * 
      * Will typically return 0.0 if the chip is not connected via SPI.
      */
     float readValue();
+
+    /**
+     * @brief Convert a value from degrees C to degrees F.
+     * 
+     * @param value 
+     * @return float 
+     */
+    static float convertCtoF(float value) { return value * 9.0 / 5.0 + 32.0; };
+
+    /**
+     * @brief Return a value in degrees Fahrenheit 
+     * 
+     * @return float A value in degrees F. It will be in the range of 32.0 <= value <= 1874.75.
+     * 
+     * Returns NaN if the sensor (T+ or T-) is not connected. See withOpenDetection().
+     * 
+     * Will typically return 32.0 if the chip is not connected via SPI.
+     */
+    float readValueF() { return convertCtoF(readValue()); };
+
 
 
 protected:
